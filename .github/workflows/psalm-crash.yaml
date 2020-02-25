@@ -1,0 +1,22 @@
+name: 'Psalm Crash'
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  psalm-crash:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+
+      - name: 'Build Docker image'
+        run: docker build -t psalm-crash  .
+
+      - name: 'Run Docker action image'
+        run: docker run --rm psalm-crash vendor/bin/psalm --config=psalm.xml --show-info=false --threads=4
